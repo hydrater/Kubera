@@ -5,4 +5,5 @@ using System.Collections;
 public class Stem : ScriptableObject {
 	Vector3 ColliderSize;
 	Vector3 ProjectileSize;
+	float time;
 }

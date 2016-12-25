@@ -5,5 +5,5 @@ using System.Collections;
 public class Prefix : ScriptableObject {
 	public Material mat;
 	public int baseDamage, baseCost;
-	public char element;
+	public char element, effect;
 }

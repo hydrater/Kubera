@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class damageHandler : MonoBehaviour {
+public class DamageHandler : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {

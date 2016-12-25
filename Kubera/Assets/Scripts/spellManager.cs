@@ -2,29 +2,29 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class spellManager : MonoBehaviour {
+public class SpellManager : MonoBehaviour {
 
-	spell[] spellList = new spell[12];
+	SpellBlueprint[] spellList = new SpellBlueprint[12];
 	
-//	void addSpell(string[][] spellsToAdd)
-//	{
-//		for (int i = 0; i < spellsToAdd.Length; ++i)
-//		{
-//			double costMultiplier = 1, damageMultiplier = 1;
-//			char type;
-//			if (spellsToAdd[i][0]!=null)
-//			{
+	void addSpell(string[][] spellsToAdd)
+	{
+		for (int i = 0; i < spellsToAdd.Length; ++i)
+		{
+			double costMultiplier = 1, damageMultiplier = 1;
+			char type;
+			if (spellsToAdd[i][0]!=null)
+			{
 //				double[] temp = classificationReturnMultiplier(spellsToAdd[i][0]);
 //				costMultiplier *= temp[0];
 //				damageMultiplier *= temp[1];
-//			}
-//
-//			//spellsToAdd[i][0]
-//
-//			//spellList[i] = new spell();
-//		}
-//	}
-//
+			}
+
+			//spellsToAdd[i][0]
+
+			//spellList[i] = new spell();
+		}
+	}
+
 //	void createName(string input)
 //	{
 //		
