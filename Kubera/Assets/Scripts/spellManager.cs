@@ -15,73 +15,65 @@ public class SpellManager : MonoBehaviour {
 		addSpell(tempSpell);
 	}
 
-	void addSpell(string[,] spellsToAdd)
+	void addSpell (string[,] spellsToAdd)
 	{
-		for (int i = 0; i < spellsToAdd.GetLength(0); ++i)
+		for (int i = 0; i < spellsToAdd.GetLength (0); ++i) 
 		{
-			string name = createName(spellsToAdd[i,0], spellsToAdd[i,1], spellsToAdd[i,2], spellsToAdd[i,3]);
-
-			double costMultiplier = 1, damageMultiplier = 1;
-			float castTimeMultiplier = 1;
-
-			if (spellsToAdd[i,0]!=null)
+			//Name
+			string name = string.Format ("{0}{1}{2}{3}", spellsToAdd [i, 0], spellsToAdd [i, 1], spellsToAdd [i, 2], spellsToAdd [i, 3]);
+			name = name.Replace ("_", " ");
+			name = char.ToUpper (name [0]) + name.Substring (1);
+			for (int j = 2; j < name.Length; ++j) 
 			{
-				Classification temp = Resources.Load(string.Format("Classification/{0}", spellsToAdd[i,0])) as Classification;
-				costMultiplier *= temp.costMultiplier;
-				damageMultiplier *= temp.damageMultiplier;
-				castTimeMultiplier *= temp.castTimeMultiplier;
+				if (name [j] == ' ') 
+				{
+					name = string.Format ("{0}{1}{2}", name.Substring (0, j + 1), char.ToUpper (name [j + 1]), name.Substring (j + 2));
+					break;
+				}
+			}
+			double damage, cost;
+			float castTime;
+
+			//Prefix import
+			Prefix temp1 = Resources.Load (string.Format ("Prefix/{0}", spellsToAdd [i, 1])) as Prefix;
+			damage = temp1.baseDamage;
+			cost = temp1.baseCost;
+			castTime = temp1.baseCastTime;
+
+			bool isStem = false;
+
+			//Stem import
+			if (spellsToAdd [i, 2] != null) 
+			{
+				Stem temp2 = Resources.Load(string.Format("Stem/{0}", spellsToAdd[i,2])) as Stem;
+				damage += temp2.baseDamage;
+				cost += temp2.baseCost;
+				castTime += temp2.baseCastTime;
+				isStem = true;
 			}
 
-			Material mat;
+			//Suffix import
+			Suffix temp3 = Resources.Load(string.Format("Suffix/{0}", spellsToAdd[i,3])) as Suffix;
+			damage += temp3.baseDamage;
+			cost += temp3.baseCost;
+			castTime += temp3.baseCastTime;
 
+			//Value finalisation
+			damage /= isStem ? 3 : 2;
+			cost /= isStem ? 3 : 2;
+			castTime /= isStem ? 3 : 2;
+			int size = 1;
 
-
-
-
-			//spellList[i] = new spell();
-		}
-	}
-
-	string createName(string input0, string input1, string input2, string input3)
-	{
-		string value = string.Format("{0}{1}{2}{3}", input0, input1, input2, input3);
-		value = value.Replace("_"," ");
-		value = char.ToUpper(value[0]) + value.Substring(1);
-		for (int i = 2; i < value.Length; ++i)
-		{
-			if (value[i] == ' ')
+			//Classification import
+			if (spellsToAdd [i, 0] != null) 
 			{
-				value = string.Format("{0}{1}{2}", value.Substring(0,i+1), char.ToUpper(value[i+1]), value.Substring(i+2));
-				break;
+				Classification temp = Resources.Load (string.Format ("Classification/{0}", spellsToAdd [i, 0])) as Classification;
+				damage *= temp.costMultiplier;
+				cost *= temp.damageMultiplier;
+				castTime *= temp.castTimeMultiplier;
+				size = temp.size;
 			}
+			spellList[i] = new SpellBlueprint(name, damage, cost, castTime, size, spellsToAdd[i,3], temp1.element, temp1.mat, temp3.type);
 		}
-
-		return value;
 	}
-
-//	double[] classificationReturnMultiplier(string ID)
-//	{
-//		double[] value = new double[2];
-//		switch(ID)
-//		{
-//			case "00":
-//			value[0] = 1;
-//			value[1] = 1;
-//			break;
-//
-//		}
-//
-//		return value;
-//	}
-//
-//	char classificationReturnType(string ID)
-//	{
-//		switch(ID)
-//		{
-//			case "00":
-//			return 'A';
-//			break;
-//		}
-//
-//	}
 }
