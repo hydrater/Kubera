@@ -10,6 +10,66 @@ public class SpellManager : MonoBehaviour {
 		{"teo", "test_","test","test"}
 	};
 
+	int affinitySelected = '0';
+
+	void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.Alpha1))
+		{
+			//for future melee
+			if (affinitySelected != 0)
+				cast(affinitySelected*1);
+		}
+
+		if (Input.GetKeyDown(KeyCode.Alpha2))
+		{
+			if (affinitySelected == 0)
+			{
+				StartCoroutine(resetAffinity());
+				affinitySelected = 1;
+			}
+			else
+				cast(affinitySelected*2);
+		}
+
+		if (Input.GetKeyDown(KeyCode.Alpha3))
+		{
+			if (affinitySelected == 0)
+			{
+				StartCoroutine(resetAffinity());
+				affinitySelected = 2;
+			}
+			else
+				cast(affinitySelected*3);
+		}
+
+		if (Input.GetKeyDown(KeyCode.Alpha4))
+		{
+			if (affinitySelected == 0)
+			{
+				StartCoroutine(resetAffinity());
+				affinitySelected = 3;
+			}
+			else
+				cast(affinitySelected*4);
+		}
+
+	}
+
+	IEnumerator resetAffinity()
+	{
+		yield return new WaitForSeconds(1f);
+		affinitySelected = 0;
+	}
+
+	void cast(int spellToCast)
+	{
+		spellList[spellToCast].executeSpell();
+		StopCoroutine(resetAffinity());
+		affinitySelected = 0;
+	}
+
+
 	void Start()
 	{
 		addSpell(tempSpell);

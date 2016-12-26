@@ -24,4 +24,11 @@ public class SpellBlueprint : MonoBehaviour {
 		element = _element;
 		type = _type;
 	}
+
+	public void executeSpell()
+	{
+		SpellStat temp = Instantiate(projectile).GetComponent<SpellStat>() as SpellStat;
+		temp = new SpellStat();
+		//assign into spell stat
+	}
 }
