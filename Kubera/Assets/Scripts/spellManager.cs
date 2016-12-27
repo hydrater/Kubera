@@ -62,13 +62,19 @@ public class SpellManager : MonoBehaviour {
 		affinitySelected = 0;
 	}
 
-	void cast(int spellToCast)
+	public void castInterrupt()
 	{
+		StopCoroutine(cast());
+		//play animation
+	}
+
+	IEnumerator cast(int spellToCast)
+	{
+		yield return new WaitForSeconds(spellList[spellToCast].castTime);
 		spellList[spellToCast].executeSpell();
 		StopCoroutine(resetAffinity());
 		affinitySelected = 0;
 	}
-
 
 	void Start()
 	{
