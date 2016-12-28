@@ -33,7 +33,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_NextStep;
         private bool m_Jumping;
         private AudioSource m_AudioSource;
-
 		public Boolean canMove = true;
 
         // Use this for initialization
@@ -47,7 +46,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
         }
-
 
         // Update is called once per frame
         private void Update()
@@ -84,36 +82,38 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 		IEnumerator dash()
         {
+        	GetComponent<AudioSource>().enabled = false;
 			canMove = false;
-			float t = 0;
-			Vector3 desiredMove;
-     
-		    while(t <= 1.5f)
+			float t = 0, speed = 20;
+			Vector3 desiredMove = Vector3.forward;
+
+		    while(t <= 1f)
 		    {
 		    	t += Time.deltaTime;
-				//GetInput (out speed);
-//				float speed;
-//				GetInput (out speed);
-//				desiredMove = transform.forward * m_Input.y + transform.right * m_Input.x;
-//				RaycastHit hitInfo;
-//				Physics.SphereCast (transform.position, m_CharacterController.radius, Vector3.down, out hitInfo,
-//					m_CharacterController.height / 2f, ~0, QueryTriggerInteraction.Ignore);
-//				desiredMove = Vector3.ProjectOnPlane (desiredMove, hitInfo.normal).normalized;
-//
-//				m_MoveDir.x = desiredMove.x * speed;
-//				m_MoveDir.z = desiredMove.z * speed;
+				//speed = Mathf.Lerp(25,6,t);
 
-				Debug.Log(desiredMove);
+				if(Input.GetKey(KeyCode.W))
+					desiredMove += transform.forward; 
+     			if(Input.GetKey(KeyCode.S)) 
+					desiredMove += transform.forward * -1;
+     			if(Input.GetKey(KeyCode.A)) 
+					desiredMove += transform.right * -1;
+     			if(Input.GetKey(KeyCode.D))   
+					desiredMove += transform.right;
+				
+				GetComponent<CharacterController>().Move(desiredMove.normalized * speed * Time.deltaTime);
 
 				yield return null;
 		    }
 			canMove = true;
+			GetComponent<AudioSource>().enabled = true;
         }
 
         private void FixedUpdate()
         {
-        	if (Input.GetKeyDown(KeyCode.LeftShift))
+        	if (Input.GetKeyDown(KeyCode.LeftShift) && canMove)
 				StartCoroutine(dash());
+
             float speed;
 			if (canMove) {
 				GetInput (out speed);
@@ -191,9 +191,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void PlayFootStepAudio()
         {
             if (!m_CharacterController.isGrounded)
-            {
                 return;
-            }
             // pick & play a random footstep sound from the array,
             // excluding sound at index 0
             int n = Random.Range(1, m_FootstepSounds.Length);
