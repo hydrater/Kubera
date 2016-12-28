@@ -7,10 +7,23 @@ public class SpellManager : MonoBehaviour {
 	SpellBlueprint[] spellList = new SpellBlueprint[12];
 	string[,] tempSpell = new string[,]
 	{
+		{"teo", "test_","test","test"},
+		{"teo", "test_","test","test"},
+		{"teo", "test_","test","test"},
+		{"teo", "test_","test","test"},
+
+		{"teo", "test_","test","test"},
+		{"teo", "test_","test","test"},
+		{"teo", "test_","test","test"},
+		{"teo", "test_","test","test"},
+
+		{"teo", "test_","test","test"},
+		{"teo", "test_","test","test"},
+		{"teo", "test_","test","test"},
 		{"teo", "test_","test","test"}
 	};
 
-	int affinitySelected = '0';
+	byte affinitySelected = 0;
 	bool isCasting = false;
 
 	void Update()
@@ -20,7 +33,7 @@ public class SpellManager : MonoBehaviour {
 			if (Input.GetKeyDown(KeyCode.Alpha1))
 			{
 				//for future melee
-				if (affinitySelected)
+				if (affinitySelected != 0 && spellList[affinitySelected - 1] != null)
 					StartCoroutine(cast(affinitySelected*1));
 			}
 
@@ -31,7 +44,7 @@ public class SpellManager : MonoBehaviour {
 					StartCoroutine(resetAffinity());
 					affinitySelected = 1;
 				}
-				else
+				else if (spellList[affinitySelected*2 - 1] != null)
 					StartCoroutine(cast(affinitySelected*2));
 			}
 
@@ -42,7 +55,7 @@ public class SpellManager : MonoBehaviour {
 					StartCoroutine(resetAffinity());
 					affinitySelected = 2;
 				}
-				else
+				else if (spellList[affinitySelected*3 - 1] != null)
 					StartCoroutine(cast(affinitySelected*3));
 			}
 
@@ -53,13 +66,12 @@ public class SpellManager : MonoBehaviour {
 					StartCoroutine(resetAffinity());
 					affinitySelected = 3;
 				}
-				else
+				else if (spellList[affinitySelected*4 - 1] != null)
 					StartCoroutine(cast(affinitySelected*4));
 			}
 			if (Input.GetKeyDown(KeyCode.BackQuote))
 				affinitySelected = 0;
 		}
-
 	}
 
 	IEnumerator resetAffinity()
