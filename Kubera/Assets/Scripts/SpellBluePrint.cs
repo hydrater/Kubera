@@ -3,7 +3,7 @@ using System.Collections;
 
 public class SpellBlueprint : MonoBehaviour {
 
-	public string name;
+	public string spellName;
 	public Material mat;
 	public double damage, cost;
 	public char type, element, effect;
@@ -14,7 +14,7 @@ public class SpellBlueprint : MonoBehaviour {
 	public SpellBlueprint(string _name, double _damage, double _cost, float _castTime, 
 	int _size, string _projectile, char _element, string _mat, char _type)
 	{
-		name = _name;
+		spellName = _name;
 		damage = _damage;
 		cost = _cost;
 		castTime = _castTime;
@@ -25,11 +25,5 @@ public class SpellBlueprint : MonoBehaviour {
 		type = _type;
 	}
 
-	public void executeSpell()
-	{
-		SpellStat temp = Instantiate(projectile).GetComponent<SpellStat>() as SpellStat;
-		temp = new SpellStat();
-		//Instantiate
-		//assign into spell stat
-	}
+
 }

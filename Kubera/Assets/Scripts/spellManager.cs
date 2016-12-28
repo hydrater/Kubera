@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class SpellManager : MonoBehaviour {
 
-	SpellBlueprint[] spellList = new SpellBlueprint[12];
+	public SpellBlueprint[] spellList = new SpellBlueprint[12];
 	string[,] tempSpell = new string[,]
 	{
 		{"teo", "test_","test",null},
@@ -61,6 +61,7 @@ public class SpellManager : MonoBehaviour {
 
 			if (Input.GetKeyDown(KeyCode.Alpha4))
 			{
+				Debug.Log("4 is pressed");
 				if (affinitySelected == 0)
 				{
 					StartCoroutine(resetAffinity());
@@ -89,13 +90,18 @@ public class SpellManager : MonoBehaviour {
 
 	IEnumerator cast(int spellToCast)
 	{
+		Debug.Log(spellList[spellToCast].castTime);
 		isCasting = true;
-		float temp = spellList[spellToCast].castTime;
-		yield return new WaitForSeconds(temp);
+		float tempCast = spellList[spellToCast].castTime;
+		yield return new WaitForSeconds(tempCast);
 		isCasting = false;
 		affinitySelected = 0;
 		StopCoroutine(resetAffinity());
-		spellList[spellToCast].executeSpell();
+		Debug.Log("exe");
+		GameObject temp = Instantiate(spellList[spellToCast].projectile, transform.position, Quaternion.identity) as GameObject;
+		temp.GetComponent<SpellStat>().damage = spellList[spellToCast].damage;
+		if (1+2 == 3)
+			Debug.Log("cake");
 	}
 
 	void Start()
@@ -107,17 +113,17 @@ public class SpellManager : MonoBehaviour {
 	{
 		for (int i = 0; i < spellsToAdd.GetLength (0); ++i) 
 		{
-			if (spellsToAdd [i,3] = null)
+			if (spellsToAdd [i,3] == null)
 				continue;
 			//Name
-			string name = string.Format ("{0}{1}{2}{3}", spellsToAdd [i, 0], spellsToAdd [i, 1], spellsToAdd [i, 2], spellsToAdd [i, 3]);
-			name = name.Replace ("_", " ");
-			name = char.ToUpper (name [0]) + name.Substring (1);
-			for (int j = 2; j < name.Length; ++j) 
+			string spellName = string.Format ("{0}{1}{2}{3}", spellsToAdd [i, 0], spellsToAdd [i, 1], spellsToAdd [i, 2], spellsToAdd [i, 3]);
+			spellName = spellName.Replace ("_", " ");
+			spellName = char.ToUpper (spellName [0]) + spellName.Substring (1);
+			for (int j = 2; j < spellName.Length; ++j) 
 			{
-				if (name [j] == ' ') 
+				if (spellName [j] == ' ') 
 				{
-					name = string.Format ("{0}{1}{2}", name.Substring (0, j + 1), char.ToUpper (name [j + 1]), name.Substring (j + 2));
+					spellName = string.Format ("{0}{1}{2}", spellName.Substring (0, j + 1), char.ToUpper (spellName [j + 1]), spellName.Substring (j + 2));
 					break;
 				}
 			}
@@ -163,7 +169,8 @@ public class SpellManager : MonoBehaviour {
 				castTime *= temp.castTimeMultiplier;
 				size = temp.size;
 			}
-			spellList[i] = new SpellBlueprint(name, damage, cost, castTime, size, spellsToAdd[i,3], temp1.element, temp1.mat, temp3.type);
+			spellList[i] = new SpellBlueprint(spellName, damage, cost, castTime, size, spellsToAdd[i,3], temp1.element, temp1.mat, temp3.type);
+			Debug.Log(spellList[i].spellName);
 		}
 	}
 }
