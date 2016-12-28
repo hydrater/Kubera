@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SpellBlueprint : MonoBehaviour {
+[System.Serializable]
+public class SpellBlueprint {
 
 	public string spellName;
 	public Material mat;

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class SpellManager : MonoBehaviour {
 
@@ -34,7 +35,7 @@ public class SpellManager : MonoBehaviour {
 			{
 				//for future melee
 				if (affinitySelected != 0 && spellList[affinitySelected - 1] != null)
-					StartCoroutine(cast(affinitySelected*1));
+					StartCoroutine(cast(affinitySelected*1 - 1));
 			}
 
 			if (Input.GetKeyDown(KeyCode.Alpha2))
@@ -45,7 +46,7 @@ public class SpellManager : MonoBehaviour {
 					affinitySelected = 1;
 				}
 				else if (spellList[affinitySelected*2 - 1] != null)
-					StartCoroutine(cast(affinitySelected*2));
+					StartCoroutine(cast(affinitySelected*2 - 1));
 			}
 
 			if (Input.GetKeyDown(KeyCode.Alpha3))
@@ -56,19 +57,18 @@ public class SpellManager : MonoBehaviour {
 					affinitySelected = 2;
 				}
 				else if (spellList[affinitySelected*3 - 1] != null)
-					StartCoroutine(cast(affinitySelected*3));
+					StartCoroutine(cast(affinitySelected*3 - 1));
 			}
 
 			if (Input.GetKeyDown(KeyCode.Alpha4))
 			{
-				Debug.Log("4 is pressed");
 				if (affinitySelected == 0)
 				{
 					StartCoroutine(resetAffinity());
 					affinitySelected = 3;
 				}
 				else if (spellList[affinitySelected*4 - 1] != null)
-					StartCoroutine(cast(affinitySelected*4));
+					StartCoroutine(cast(affinitySelected*4 - 1));
 			}
 			if (Input.GetKeyDown(KeyCode.BackQuote))
 				affinitySelected = 0;
@@ -85,23 +85,24 @@ public class SpellManager : MonoBehaviour {
 	{
 		StopCoroutine("cast");
 		isCasting = false;
-		//play animation
+		//play animation until it's finished
+		GetComponent<FirstPersonController>().enabled = true;
 	}
 
 	IEnumerator cast(int spellToCast)
 	{
-		Debug.Log(spellList[spellToCast].castTime);
 		isCasting = true;
+		GetComponent<FirstPersonController>().enabled = false;
+		Debug.Log("spell is casting" + isCasting);
 		float tempCast = spellList[spellToCast].castTime;
 		yield return new WaitForSeconds(tempCast);
 		isCasting = false;
+		GetComponent<FirstPersonController>().enabled = true;
 		affinitySelected = 0;
 		StopCoroutine(resetAffinity());
-		Debug.Log("exe");
+		Debug.Log("spell finished casting " + isCasting);
 		GameObject temp = Instantiate(spellList[spellToCast].projectile, transform.position, Quaternion.identity) as GameObject;
 		temp.GetComponent<SpellStat>().damage = spellList[spellToCast].damage;
-		if (1+2 == 3)
-			Debug.Log("cake");
 	}
 
 	void Start()
@@ -170,7 +171,6 @@ public class SpellManager : MonoBehaviour {
 				size = temp.size;
 			}
 			spellList[i] = new SpellBlueprint(spellName, damage, cost, castTime, size, spellsToAdd[i,3], temp1.element, temp1.mat, temp3.type);
-			Debug.Log(spellList[i].spellName);
 		}
 	}
 }
