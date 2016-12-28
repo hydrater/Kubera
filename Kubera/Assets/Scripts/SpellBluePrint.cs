@@ -7,7 +7,8 @@ public class SpellBlueprint : MonoBehaviour {
 	readonly Material mat;
 	readonly double damage, cost;
 	readonly char type, element, effect;
-	readonly float castTime, duration, speed;
+	readonly float duration, speed;
+	public float castTime;
 	readonly int size;
 	readonly GameObject projectile;
 

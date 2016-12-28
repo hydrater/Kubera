@@ -11,47 +11,53 @@ public class SpellManager : MonoBehaviour {
 	};
 
 	int affinitySelected = '0';
+	bool isCasting = false;
 
 	void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Alpha1))
+		if (!isCasting)
 		{
-			//for future melee
-			if (affinitySelected != 0)
-				cast(affinitySelected*1);
-		}
-
-		if (Input.GetKeyDown(KeyCode.Alpha2))
-		{
-			if (affinitySelected == 0)
+			if (Input.GetKeyDown(KeyCode.Alpha1))
 			{
-				StartCoroutine(resetAffinity());
-				affinitySelected = 1;
+				//for future melee
+				if (affinitySelected)
+					StartCoroutine(cast(affinitySelected*1));
 			}
-			else
-				cast(affinitySelected*2);
-		}
 
-		if (Input.GetKeyDown(KeyCode.Alpha3))
-		{
-			if (affinitySelected == 0)
+			if (Input.GetKeyDown(KeyCode.Alpha2))
 			{
-				StartCoroutine(resetAffinity());
-				affinitySelected = 2;
+				if (affinitySelected == 0)
+				{
+					StartCoroutine(resetAffinity());
+					affinitySelected = 1;
+				}
+				else
+					StartCoroutine(cast(affinitySelected*2));
 			}
-			else
-				cast(affinitySelected*3);
-		}
 
-		if (Input.GetKeyDown(KeyCode.Alpha4))
-		{
-			if (affinitySelected == 0)
+			if (Input.GetKeyDown(KeyCode.Alpha3))
 			{
-				StartCoroutine(resetAffinity());
-				affinitySelected = 3;
+				if (affinitySelected == 0)
+				{
+					StartCoroutine(resetAffinity());
+					affinitySelected = 2;
+				}
+				else
+					StartCoroutine(cast(affinitySelected*3));
 			}
-			else
-				cast(affinitySelected*4);
+
+			if (Input.GetKeyDown(KeyCode.Alpha4))
+			{
+				if (affinitySelected == 0)
+				{
+					StartCoroutine(resetAffinity());
+					affinitySelected = 3;
+				}
+				else
+					StartCoroutine(cast(affinitySelected*4));
+			}
+			if (Input.GetKeyDown(KeyCode.BackQuote))
+				affinitySelected = 0;
 		}
 
 	}
@@ -64,16 +70,20 @@ public class SpellManager : MonoBehaviour {
 
 	public void castInterrupt()
 	{
-		StopCoroutine(cast());
+		StopCoroutine("cast");
+		isCasting = false;
 		//play animation
 	}
 
 	IEnumerator cast(int spellToCast)
 	{
-		yield return new WaitForSeconds(spellList[spellToCast].castTime);
-		spellList[spellToCast].executeSpell();
-		StopCoroutine(resetAffinity());
+		isCasting = true;
+		float temp = spellList[spellToCast].castTime;
+		yield return new WaitForSeconds(temp);
+		isCasting = false;
 		affinitySelected = 0;
+		StopCoroutine(resetAffinity());
+		spellList[spellToCast].executeSpell();
 	}
 
 	void Start()

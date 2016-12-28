@@ -2,9 +2,9 @@
 using System.Collections;
 
 public class SpellStat : MonoBehaviour {
-	readonly double damage;
-	readonly char type, element, effect;
-	readonly float duration, speed;
+	public double damage;
+	public char type, element, effect;
+	public float duration, speed;
 
 	public SpellStat()
 	{
