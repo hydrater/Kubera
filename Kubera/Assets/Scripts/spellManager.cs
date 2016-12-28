@@ -34,7 +34,7 @@ public class SpellManager : MonoBehaviour {
 			if (Input.GetKeyDown(KeyCode.Alpha1))
 			{
 				//for future melee
-				if (affinitySelected != 0 && spellList[affinitySelected - 1] != null)
+				if (affinitySelected != 0 && spellList[affinitySelected - 1].spellName != "")
 					StartCoroutine(cast(affinitySelected*1 - 1));
 			}
 
@@ -45,7 +45,7 @@ public class SpellManager : MonoBehaviour {
 					StartCoroutine(resetAffinity());
 					affinitySelected = 1;
 				}
-				else if (spellList[affinitySelected*2 - 1] != null)
+				else if (spellList[affinitySelected*2 - 1].spellName != "")
 					StartCoroutine(cast(affinitySelected*2 - 1));
 			}
 
@@ -56,7 +56,7 @@ public class SpellManager : MonoBehaviour {
 					StartCoroutine(resetAffinity());
 					affinitySelected = 2;
 				}
-				else if (spellList[affinitySelected*3 - 1] != null)
+				else if (spellList[affinitySelected*3 - 1].spellName != "")
 					StartCoroutine(cast(affinitySelected*3 - 1));
 			}
 
@@ -67,7 +67,7 @@ public class SpellManager : MonoBehaviour {
 					StartCoroutine(resetAffinity());
 					affinitySelected = 3;
 				}
-				else if (spellList[affinitySelected*4 - 1] != null)
+				else if (spellList[affinitySelected*4 - 1].spellName != "")
 					StartCoroutine(cast(affinitySelected*4 - 1));
 			}
 			if (Input.GetKeyDown(KeyCode.BackQuote))
