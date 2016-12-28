@@ -6,8 +6,7 @@ public class SpellCircle : MonoBehaviour {
 	void Start () 
 	{
 		StartCoroutine(DeathTimer());
-		Debug.Log(Camera.main.transform.rotation.x);
-		transform.eulerAngles = new Vector3(Camera.main.transform.rotation.x, Camera.main.transform.rotation.y, 90);
+		transform.eulerAngles = new Vector3(transform.eulerAngles.x+90, transform.eulerAngles.y, transform.eulerAngles.z);
 	}
 
 	void Update ()

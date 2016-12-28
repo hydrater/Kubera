@@ -44,8 +44,7 @@ public class SpellManager : MonoBehaviour {
 				{
 					StartCoroutine(resetAffinity());
 					affinitySelected = 1;
-					Debug.Log("reached");
-					Instantiate(Resources.Load("Others/spellCircle"), transform.position, Quaternion.identity);
+					Instantiate(Resources.Load("Others/spellCircle"), transform.position, transform.rotation);
 				}
 				else if (spellList[affinitySelected*2 - 1].spellName != "")
 					StartCoroutine(cast(affinitySelected*2 - 1));
@@ -57,7 +56,7 @@ public class SpellManager : MonoBehaviour {
 				{
 					StartCoroutine(resetAffinity());
 					affinitySelected = 2;
-					Instantiate(Resources.Load("Others/spellCircle"), transform.position, Quaternion.identity);
+					Instantiate(Resources.Load("Others/spellCircle"), transform.position, transform.rotation);
 				}
 				else if (spellList[affinitySelected*3 - 1].spellName != "")
 					StartCoroutine(cast(affinitySelected*3 - 1));
@@ -69,7 +68,7 @@ public class SpellManager : MonoBehaviour {
 				{
 					StartCoroutine(resetAffinity());
 					affinitySelected = 3;
-					Instantiate(Resources.Load("Others/spellCircle"), transform.position, Quaternion.identity);
+					Instantiate(Resources.Load("Others/spellCircle"), transform.position, transform.rotation);
 				}
 				else if (spellList[affinitySelected*4 - 1].spellName != "")
 					StartCoroutine(cast(affinitySelected*4 - 1));
