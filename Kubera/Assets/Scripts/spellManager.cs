@@ -42,9 +42,7 @@ public class SpellManager : MonoBehaviour {
 			{
 				if (affinitySelected == 0)
 				{
-					StartCoroutine(resetAffinity());
-					affinitySelected = 1;
-					Instantiate(Resources.Load("Others/spellCircle"), transform.position, transform.rotation);
+					affinitySelect(1);
 				}
 				else if (spellList[affinitySelected*2 - 1].spellName != "")
 					StartCoroutine(cast(affinitySelected*2 - 1));
@@ -54,9 +52,7 @@ public class SpellManager : MonoBehaviour {
 			{
 				if (affinitySelected == 0)
 				{
-					StartCoroutine(resetAffinity());
-					affinitySelected = 2;
-					Instantiate(Resources.Load("Others/spellCircle"), transform.position, transform.rotation);
+					affinitySelect(2);
 				}
 				else if (spellList[affinitySelected*3 - 1].spellName != "")
 					StartCoroutine(cast(affinitySelected*3 - 1));
@@ -66,9 +62,7 @@ public class SpellManager : MonoBehaviour {
 			{
 				if (affinitySelected == 0)
 				{
-					StartCoroutine(resetAffinity());
-					affinitySelected = 3;
-					Instantiate(Resources.Load("Others/spellCircle"), transform.position, transform.rotation);
+					affinitySelect(3);
 				}
 				else if (spellList[affinitySelected*4 - 1].spellName != "")
 					StartCoroutine(cast(affinitySelected*4 - 1));
@@ -76,6 +70,16 @@ public class SpellManager : MonoBehaviour {
 			if (Input.GetKeyDown(KeyCode.BackQuote))
 				affinitySelected = 0;
 		}
+	}
+
+	void affinitySelect(byte selection)
+	{
+		StartCoroutine(resetAffinity());
+		affinitySelected = selection;
+		GameObject temp = Instantiate(Resources.Load("Others/spellCircle"), transform.position, transform.rotation) as GameObject;
+		Material mat = Resources.Load(string.Format("Affinity/Materials/{0}", selection)) as Material;
+        temp.GetComponent<Renderer>().material = mat;
+		temp.transform.GetChild(0).GetComponent<Renderer>().material = mat;
 	}
 
 	IEnumerator resetAffinity()

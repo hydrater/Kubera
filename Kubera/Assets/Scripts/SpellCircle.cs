@@ -27,7 +27,7 @@ public class SpellCircle : MonoBehaviour {
 		transform.localScale = final;
 		yield return new WaitForSeconds(0.5f);
 		float alpha = transform.GetComponent<Renderer>().material.color.a;
-		for (float t = 0.0f; t < 1; t += Time.deltaTime)
+		for (float t = 0.0f; t < 1; t += Time.deltaTime / 1.0f)
 	    {
 	        Color newColor = new Color(1, 1, 1, Mathf.Lerp(alpha,0,t));
 	        transform.GetComponent<Renderer>().material.color = newColor;
