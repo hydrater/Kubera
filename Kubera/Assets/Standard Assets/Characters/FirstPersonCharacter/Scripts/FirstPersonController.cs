@@ -90,7 +90,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 		    while(t <= 1f)
 		    {
 		    	t += Time.deltaTime;
-				//speed = Mathf.Lerp(25,6,t);
+				speed = Mathf.Lerp(25,18,t);
 
 				if(Input.GetKey(KeyCode.W))
 					desiredMove += transform.forward; 
