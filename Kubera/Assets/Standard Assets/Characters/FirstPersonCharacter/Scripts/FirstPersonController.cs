@@ -41,6 +41,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool m_Jumping;
         private AudioSource m_AudioSource;
 
+		public Boolean canMove = true;
+
         // Use this for initialization
         private void Start()
         {
@@ -112,7 +114,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 m_MoveDir.y = -m_StickToGroundForce;
 
-                if (m_Jump)
+				if (m_Jump && canMove)
                 {
                     m_MoveDir.y = m_JumpSpeed;
                     PlayJumpSound();
