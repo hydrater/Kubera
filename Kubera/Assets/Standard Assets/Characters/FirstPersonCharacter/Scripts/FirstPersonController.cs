@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityStandardAssets.Utility;
 using Random = UnityEngine.Random;
@@ -9,7 +10,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
     [RequireComponent(typeof (AudioSource))]
     public class FirstPersonController : MonoBehaviour
     {
-        [SerializeField] private bool m_IsWalking;
         [SerializeField] private float m_RunSpeed;
         [SerializeField] [Range(0f, 1f)] private float m_RunstepLenghten;
         [SerializeField] private float m_JumpSpeed;
@@ -82,8 +82,38 @@ namespace UnityStandardAssets.Characters.FirstPerson
         }
 
 
+		IEnumerator dash()
+        {
+			canMove = false;
+			float t = 0;
+			Vector3 desiredMove;
+     
+		    while(t <= 1.5f)
+		    {
+		    	t += Time.deltaTime;
+				//GetInput (out speed);
+//				float speed;
+//				GetInput (out speed);
+//				desiredMove = transform.forward * m_Input.y + transform.right * m_Input.x;
+//				RaycastHit hitInfo;
+//				Physics.SphereCast (transform.position, m_CharacterController.radius, Vector3.down, out hitInfo,
+//					m_CharacterController.height / 2f, ~0, QueryTriggerInteraction.Ignore);
+//				desiredMove = Vector3.ProjectOnPlane (desiredMove, hitInfo.normal).normalized;
+//
+//				m_MoveDir.x = desiredMove.x * speed;
+//				m_MoveDir.z = desiredMove.z * speed;
+
+				Debug.Log(desiredMove);
+
+				yield return null;
+		    }
+			canMove = true;
+        }
+
         private void FixedUpdate()
         {
+        	if (Input.GetKeyDown(KeyCode.LeftShift))
+				StartCoroutine(dash());
             float speed;
 			if (canMove) {
 				GetInput (out speed);
@@ -143,7 +173,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             if (m_CharacterController.velocity.sqrMagnitude > 0 && (m_Input.x != 0 || m_Input.y != 0))
             {
-                m_StepCycle += (m_CharacterController.velocity.magnitude + (speed*(m_IsWalking ? 1f : m_RunstepLenghten)))*
+                m_StepCycle += (m_CharacterController.velocity.magnitude + (speed*m_RunstepLenghten))*
                              Time.fixedDeltaTime;
             }
 
@@ -179,8 +209,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             // Read input
             float horizontal = Input.GetAxis("Horizontal");
 			float vertical = Input.GetAxis("Vertical");
-
-
 
             // set the desired speed to be walking or running
             speed = m_RunSpeed;

@@ -19,7 +19,8 @@ public class SpellCircle : MonoBehaviour {
 		Vector3 final = new Vector3(0.8f,0.8f,0.8f);
 		float t = 0;
      
-	    while(t <= 1){
+	    while(t <= 1)
+	    {
 			transform.localScale = Vector3.Lerp(transform.localScale, final, t);
 	        t += Time.deltaTime;
 	        yield return null;
