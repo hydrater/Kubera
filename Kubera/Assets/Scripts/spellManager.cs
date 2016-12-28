@@ -92,12 +92,12 @@ public class SpellManager : MonoBehaviour {
 	IEnumerator cast(int spellToCast)
 	{
 		isCasting = true;
-		GetComponent<FirstPersonController>().enabled = false;
+		GetComponent<FirstPersonController>().canMove = false;
 		Debug.Log("spell is casting" + isCasting);
 		float tempCast = spellList[spellToCast].castTime;
 		yield return new WaitForSeconds(tempCast);
 		isCasting = false;
-		GetComponent<FirstPersonController>().enabled = true;
+		GetComponent<FirstPersonController>().canMove = true;
 		affinitySelected = 0;
 		StopCoroutine(resetAffinity());
 		Debug.Log("spell finished casting " + isCasting);
