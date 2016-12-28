@@ -101,7 +101,7 @@ public class SpellManager : MonoBehaviour {
 		affinitySelected = 0;
 		StopCoroutine(resetAffinity());
 		Debug.Log("spell finished casting " + isCasting);
-		GameObject temp = Instantiate(spellList[spellToCast].projectile, transform.position, Quaternion.identity) as GameObject;
+		GameObject temp = Instantiate(spellList[spellToCast].projectile, transform.position, Camera.main.transform.rotation) as GameObject;
 		temp.GetComponent<SpellStat>().damage = spellList[spellToCast].damage;
 	}
 
