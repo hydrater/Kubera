@@ -3,14 +3,13 @@ using System.Collections;
 
 public class SpellBlueprint : MonoBehaviour {
 
-	readonly string name;
-	readonly Material mat;
-	readonly double damage, cost;
-	readonly char type, element, effect;
-	readonly float duration, speed;
-	public float castTime;
-	readonly int size;
-	readonly GameObject projectile;
+	public string name;
+	public Material mat;
+	public double damage, cost;
+	public char type, element, effect;
+	public float castTime, duration, speed;
+	public int size;
+	public GameObject projectile;
 
 	public SpellBlueprint(string _name, double _damage, double _cost, float _castTime, 
 	int _size, string _projectile, char _element, string _mat, char _type)
@@ -30,6 +29,7 @@ public class SpellBlueprint : MonoBehaviour {
 	{
 		SpellStat temp = Instantiate(projectile).GetComponent<SpellStat>() as SpellStat;
 		temp = new SpellStat();
+		//Instantiate
 		//assign into spell stat
 	}
 }

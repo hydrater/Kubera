@@ -7,20 +7,20 @@ public class SpellManager : MonoBehaviour {
 	SpellBlueprint[] spellList = new SpellBlueprint[12];
 	string[,] tempSpell = new string[,]
 	{
-		{"teo", "test_","test","test"},
-		{"teo", "test_","test","test"},
-		{"teo", "test_","test","test"},
-		{"teo", "test_","test","test"},
+		{"teo", "test_","test",null},
+		{"teo", "test_","test",null},
+		{"teo", "test_","test",null},
+		{"teo", "test_","test",null},
 
-		{"teo", "test_","test","test"},
-		{"teo", "test_","test","test"},
-		{"teo", "test_","test","test"},
-		{"teo", "test_","test","test"},
+		{"teo", "test_","test",null},
+		{"teo", "test_","test",null},
+		{"teo", "test_","test",null},
+		{"teo", "test_","test",null},
 
-		{"teo", "test_","test","test"},
-		{"teo", "test_","test","test"},
-		{"teo", "test_","test","test"},
-		{"teo", "test_","test","test"}
+		{"teo", "test_","test",null},
+		{"teo", "test_","test",null},
+		{"teo", "test_","test",null},
+		{"aru", "dos","saru","nia"}
 	};
 
 	byte affinitySelected = 0;
@@ -107,6 +107,8 @@ public class SpellManager : MonoBehaviour {
 	{
 		for (int i = 0; i < spellsToAdd.GetLength (0); ++i) 
 		{
+			if (spellsToAdd [i,3] = null)
+				continue;
 			//Name
 			string name = string.Format ("{0}{1}{2}{3}", spellsToAdd [i, 0], spellsToAdd [i, 1], spellsToAdd [i, 2], spellsToAdd [i, 3]);
 			name = name.Replace ("_", " ");
