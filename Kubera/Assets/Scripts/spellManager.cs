@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityStandardAssets.Characters.FirstPerson;
 
 public class SpellManager : MonoBehaviour {
-
+	public GameObject affinityParticle;
 	public SpellBlueprint[] spellList = new SpellBlueprint[12];
 	string[,] tempSpell = new string[,]
 	{
@@ -80,7 +80,9 @@ public class SpellManager : MonoBehaviour {
 
 	IEnumerator resetAffinity()
 	{
-		yield return new WaitForSeconds(1f);
+		affinityParticle.SetActive(true);
+		yield return new WaitForSeconds(2f);
+		affinityParticle.SetActive(false);
 		affinitySelected = 0;
 	}
 
@@ -103,6 +105,7 @@ public class SpellManager : MonoBehaviour {
 		GetComponent<FirstPersonController>().canMove = true;
 		affinitySelected = 0;
 		StopCoroutine(resetAffinity());
+		affinityParticle.SetActive(false);
 		Debug.Log("spell finished casting " + isCasting);
 		GameObject temp = Instantiate(spellList[spellToCast].projectile, transform.position, Camera.main.transform.rotation) as GameObject;
 		temp.GetComponent<SpellStat>().damage = spellList[spellToCast].damage;
