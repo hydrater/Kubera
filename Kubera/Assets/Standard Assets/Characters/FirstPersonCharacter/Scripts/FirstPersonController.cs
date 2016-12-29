@@ -131,7 +131,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 				bool temp = (m_Input != Vector2.zero);
 				animator.SetBool("isMoving", temp);
-
 				animator.SetFloat("Forward", vertical);
 				animator.SetFloat("Right", horizontal);
 
@@ -153,10 +152,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				m_MoveDir.x = desiredMove.x * speed;
 				m_MoveDir.z = desiredMove.z * speed;
 
-				if (m_CharacterController.isGrounded) {
+				if (m_CharacterController.isGrounded)
+				{
 					m_MoveDir.y = -m_StickToGroundForce;
-
-					if (m_Jump) {
+					if (m_Jump) 
+					{
+						animator.SetTrigger("Jump");
 						m_MoveDir.y = m_JumpSpeed;
 						PlayJumpSound ();
 						m_Jump = false;
