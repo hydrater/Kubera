@@ -107,6 +107,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				
 				GetComponent<CharacterController>().Move(desiredMove.normalized * speed * Time.deltaTime);
 
+				if (Input.GetKeyUp(KeyCode.LeftShift))
+					break;
+
 				yield return null;
 		    }
 			canMove = true;
