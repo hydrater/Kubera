@@ -88,7 +88,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         	GetComponent<AudioSource>().enabled = false;
 			canMove = false;
 			float t = 0, speed = 20;
-			Vector3 desiredMove = Vector3.forward;
+			Vector3 desiredMove = transform.forward;
+			animator.SetTrigger("Dashing");
 
 		    while(t <= 1f)
 		    {
@@ -118,8 +119,28 @@ namespace UnityStandardAssets.Characters.FirstPerson
 				StartCoroutine(dash());
 
             float speed;
-			if (canMove) {
-				GetInput (out speed);
+			if (canMove) 
+			{
+				// Read input
+				float horizontal = Input.GetAxis("Horizontal");
+				float vertical = Input.GetAxis("Vertical");
+
+            	// set the desired speed to be walking or running
+            	speed = m_RunSpeed;
+            	m_Input = new Vector2(horizontal, vertical);
+
+				bool temp = (m_Input != Vector2.zero);
+				animator.SetBool("isMoving", temp);
+
+				animator.SetFloat("Forward", vertical);
+				animator.SetFloat("Right", horizontal);
+
+            	// normalize input if it exceeds 1 in combined length:
+            	if (m_Input.sqrMagnitude > 1)
+            	{
+                	m_Input.Normalize();
+            	}
+
 				// always move along the camera forward as it is the direction that it being aimed at
 				Vector3 desiredMove = transform.forward * m_Input.y + transform.right * m_Input.x;
 
@@ -131,8 +152,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 				m_MoveDir.x = desiredMove.x * speed;
 				m_MoveDir.z = desiredMove.z * speed;
-			
-
 
 				if (m_CharacterController.isGrounded) {
 					m_MoveDir.y = -m_StickToGroundForce;
@@ -203,26 +222,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             // move picked sound to index 0 so it's not picked next time
             m_FootstepSounds[n] = m_FootstepSounds[0];
             m_FootstepSounds[0] = m_AudioSource.clip;
-        }
-
-        private void GetInput(out float speed)
-        {
-            // Read input
-            float horizontal = Input.GetAxis("Horizontal");
-			float vertical = Input.GetAxis("Vertical");
-
-			animator.SetFloat("Strafe", horizontal);
-			animator.SetFloat("Forward", vertical);
-
-            // set the desired speed to be walking or running
-            speed = m_RunSpeed;
-            m_Input = new Vector2(horizontal, vertical);
-
-            // normalize input if it exceeds 1 in combined length:
-            if (m_Input.sqrMagnitude > 1)
-            {
-                m_Input.Normalize();
-            }
         }
 
         private void RotateView()
