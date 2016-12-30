@@ -48,7 +48,8 @@ public class EffectSettings : MonoBehaviour
 	#if !UNITY_4_3 
 	[Tooltip("Motion vector for the projectile (eg Vector3.Forward)")]
 	#endif 
-  public Vector3 MoveVector = Vector3.forward;
+   [HideInInspector]
+  public Vector3 MoveVector;
 
 	#if !UNITY_4_3 
 	[Tooltip("The speed of the projectile")]
@@ -106,7 +107,9 @@ public class EffectSettings : MonoBehaviour
 
   void Start()
   {
-    if (InstanceBehaviour == DeactivationEnum.DestroyAfterTime) Destroy(gameObject, DestroyTimeDelay);
+    if (InstanceBehaviour == DeactivationEnum.DestroyAfterTime) 
+    	Destroy(gameObject, DestroyTimeDelay);
+	MoveVector = gameObject.transform.forward;
   }
 
   public void OnCollisionHandler(CollisionInfo e)

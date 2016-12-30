@@ -5,6 +5,7 @@ using UnityStandardAssets.Characters.FirstPerson;
 public class SpellManager : MonoBehaviour {
 	public GameObject affinityParticle, aimer;
 	public SpellBlueprint[] spellList = new SpellBlueprint[12];
+	private IEnumerator resetCoroutine;
 	string[,] tempSpell = new string[,]
 	{
 		{"teo", "test_","test",null},
@@ -20,7 +21,7 @@ public class SpellManager : MonoBehaviour {
 		{"teo", "test_","test",null},
 		{"teo", "test_","test",null},
 		{"teo", "test_","test",null},
-		{"aru", "dos","saru","nia"}
+		{"sepia", "fra",null,"ruya"}
 	};
 
 	byte affinitySelected = 0;
@@ -73,7 +74,8 @@ public class SpellManager : MonoBehaviour {
 
 	void affinitySelect(byte selection)
 	{
-		StartCoroutine(resetAffinity());
+		resetCoroutine = resetAffinity();
+		StartCoroutine(resetCoroutine);
 		affinitySelected = selection;
 		GameObject temp = Instantiate(Resources.Load("Others/spellCircle"), transform.position, transform.rotation) as GameObject;
 		Material mat = Resources.Load(string.Format("Affinity/Materials/{0}", selection)) as Material;
@@ -104,11 +106,13 @@ public class SpellManager : MonoBehaviour {
 		aimer.SetActive(true);
 		Debug.Log("spell is casting" + isCasting);
 		float tempCast = spellList[spellToCast].castTime;
+		Debug.Log(tempCast);
 		yield return new WaitForSeconds(tempCast);
 		isCasting = false;
 		GetComponent<FirstPersonController>().canMove = true;
 		affinitySelected = 0;
 		StopCoroutine(resetAffinity());
+
 		affinityParticle.SetActive(false);
 		aimer.SetActive(false);
 		Debug.Log("spell finished casting " + isCasting);
