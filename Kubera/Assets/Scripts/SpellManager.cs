@@ -7,10 +7,10 @@ public class SpellManager : MonoBehaviour {
 	public SpellBlueprint[] spellList = new SpellBlueprint[12];
 	string[,] tempSpell = new string[,]
 	{
-		{"teo", "test_","test",null},
-		{"teo", "test_","test",null},
-		{"teo", "test_","test",null},
-		{"teo", "test_","test",null},
+		{"teo", "gravi",null,"da"},
+		{"teo", "gravi",null,"ruya"},
+		{"teo", "gravi",null,"gesu"},
+		{"teo", "gravi",null,"ria"},
 
 		{"sepia", "fra",null,null},
 		{"sepia", "fra",null,"va"},
