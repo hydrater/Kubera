@@ -12,7 +12,7 @@ public class SpellManager : MonoBehaviour {
 		{"teo", "test_","test",null},
 		{"teo", "test_","test",null},
 
-		{"sepia", "fra",null,"null"},
+		{"sepia", "fra",null,null},
 		{"sepia", "fra",null,"va"},
 		{"sepia", "fra",null,"ria"},
 		{"sepia", "fra",null,"kezo"},
