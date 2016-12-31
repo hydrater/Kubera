@@ -20,7 +20,7 @@ public class SpellManager : MonoBehaviour {
 		{"sepia", "fra",null,"gesu"},
 		{"sepia", "fra",null,"don"},
 		{"sepia", "fra",null,"ruya"},
-		{"sepia", "fra",null,"da"}
+		{"dia", "fra",null,"da"}
 	};
 
 	byte affinitySelected = 0;
