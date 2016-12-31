@@ -18,9 +18,9 @@ public class SpellManager : MonoBehaviour {
 		{"sepia", "fra",null,"kezo"},
 
 		{"sepia", "fra",null,"gesu"},
-		{"sepia", "fra",null,"don"},
+		{"gigano_", "fra",null,"don"},
 		{"sepia", "fra",null,"ruya"},
-		{"dia", "fra",null,"da"}
+		{"gigano_", "fra",null,"da"}
 	};
 
 	byte affinitySelected = 0;
