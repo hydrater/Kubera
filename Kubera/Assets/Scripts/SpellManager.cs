@@ -128,6 +128,7 @@ public class SpellManager : MonoBehaviour {
 		aimer.SetActive(false);
 		Debug.Log("spell finished casting " + isCasting);
 		GameObject temp = Instantiate(spellList[spellToCast].projectile, transform.position, Camera.main.transform.rotation) as GameObject;
+		temp.transform.localScale = Vector3(spellList[spellToCast].size, spellList[spellToCast].size, spellList[spellToCast].size);
 		temp.GetComponent<SpellStat>().damage = spellList[spellToCast].damage;
 	}
 
