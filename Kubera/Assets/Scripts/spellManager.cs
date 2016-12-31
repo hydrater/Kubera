@@ -5,7 +5,6 @@ using UnityStandardAssets.Characters.FirstPerson;
 public class SpellManager : MonoBehaviour {
 	public GameObject affinityParticle, aimer;
 	public SpellBlueprint[] spellList = new SpellBlueprint[12];
-	private IEnumerator resetCoroutine;
 	string[,] tempSpell = new string[,]
 	{
 		{"teo", "test_","test",null},
@@ -31,71 +30,84 @@ public class SpellManager : MonoBehaviour {
 	{
 		if (!isCasting)
 		{
-			if (Input.GetKeyDown(KeyCode.Alpha1))
-			{
-				//for future melee
-				if (affinitySelected != 0 && spellList[affinitySelected - 1].spellName != "")
-					StartCoroutine(cast(affinitySelected*1 - 1));
-			}
-
 			if (Input.GetKeyDown(KeyCode.Alpha2))
 			{
-				if (affinitySelected == 0)
-				{
-					affinitySelect(1);
-				}
-				else if (spellList[affinitySelected*2 - 1].spellName != "")
-					StartCoroutine(cast(affinitySelected*2 - 1));
+				affinitySelected = 1;
+				isCasting = true;
+				StartCoroutine(AffinitySelection());
 			}
-
-			if (Input.GetKeyDown(KeyCode.Alpha3))
+			else if (Input.GetKeyDown(KeyCode.Alpha3))
 			{
-				if (affinitySelected == 0)
-				{
-					affinitySelect(2);
-				}
-				else if (spellList[affinitySelected*3 - 1].spellName != "")
-					StartCoroutine(cast(affinitySelected*3 - 1));
+				affinitySelected = 2;
+				isCasting = true;
+				StartCoroutine(AffinitySelection());
 			}
-
-			if (Input.GetKeyDown(KeyCode.Alpha4))
+			else if (Input.GetKeyDown(KeyCode.Alpha4))
 			{
-				if (affinitySelected == 0)
-				{
-					affinitySelect(3);
-				}
-				else if (spellList[affinitySelected*4 - 1].spellName != "")
-					StartCoroutine(cast(affinitySelected*4 - 1));
+				affinitySelected = 3;
+				isCasting = true;
+				StartCoroutine(AffinitySelection());
 			}
-			if (Input.GetKeyDown(KeyCode.BackQuote))
-				affinitySelected = 0;
 		}
 	}
 
-	void affinitySelect(byte selection)
-	{
-		resetCoroutine = resetAffinity();
-		StartCoroutine(resetCoroutine);
-		affinitySelected = selection;
-		GameObject temp = Instantiate(Resources.Load("Others/spellCircle"), transform.position, transform.rotation) as GameObject;
-		Material mat = Resources.Load(string.Format("Affinity/Materials/{0}", selection)) as Material;
-        temp.GetComponent<Renderer>().material = mat;
-		temp.transform.GetChild(0).GetComponent<Renderer>().material = mat;
-	}
-
-	IEnumerator resetAffinity()
+	IEnumerator AffinitySelection()
 	{
 		affinityParticle.SetActive(true);
-		yield return new WaitForSeconds(2f);
-		affinityParticle.SetActive(false);
-		affinitySelected = 0;
+		float t = 0;
+		GameObject temp = Instantiate(Resources.Load("Others/spellCircle"), transform.position, transform.rotation) as GameObject;
+		Material mat = Resources.Load(string.Format("Affinity/Materials/{0}", affinitySelected)) as Material;
+        temp.GetComponent<Renderer>().material = mat;
+		temp.transform.GetChild(0).GetComponent<Renderer>().material = mat;
+		yield return null;
+		while (isCasting && t < 1)
+		{
+			if (Input.GetKeyDown(KeyCode.Alpha1))
+			{
+				if (spellList[affinitySelected - 1].spellName != "")
+				{
+					StartCoroutine(cast(affinitySelected - 1));
+					break;
+				}
+			}
+			else if (Input.GetKeyDown(KeyCode.Alpha2))
+			{
+				if (spellList[affinitySelected*2 - 1].spellName != "")
+				{
+					StartCoroutine(cast(affinitySelected*2 - 1));
+					break;
+				}
+			}
+			else if (Input.GetKeyDown(KeyCode.Alpha3))
+			{
+				if (spellList[affinitySelected*3 - 1].spellName != "")
+				{
+					StartCoroutine(cast(affinitySelected*3 - 1));
+					break;
+				}
+			}
+			else if (Input.GetKeyDown(KeyCode.Alpha4))
+			{
+				if (spellList[affinitySelected*4 - 1].spellName != "")
+				{
+					StartCoroutine(cast(affinitySelected*4 - 1));
+					break;
+				}
+			}
+			t += Time.deltaTime;
+			yield return null;
+		}
+		if (t>1)
+		{
+			affinityParticle.SetActive(false);
+			affinitySelected = 0;
+			isCasting = false;
+		}
 	}
 
 	public void castInterrupt()
 	{
-		StopCoroutine("cast");
 		isCasting = false;
-		//play animation until it's finished
 		GetComponent<FirstPersonController>().enabled = true;
 	}
 
@@ -111,8 +123,6 @@ public class SpellManager : MonoBehaviour {
 		isCasting = false;
 		GetComponent<FirstPersonController>().canMove = true;
 		affinitySelected = 0;
-		StopCoroutine(resetAffinity());
-
 		affinityParticle.SetActive(false);
 		aimer.SetActive(false);
 		Debug.Log("spell finished casting " + isCasting);
