@@ -19,7 +19,7 @@ public class SpellManager : MonoBehaviour {
 
 		{"sepia", "fra",null,"gesu"},
 		{"gigano_", "fra",null,"don"},
-		{"sepia", "fra",null,"ruya"},
+		{"gigano_", "fra",null,"ruya"},
 		{"gigano_", "fra",null,"da"}
 	};
 
@@ -129,6 +129,7 @@ public class SpellManager : MonoBehaviour {
 		Debug.Log("spell finished casting " + isCasting);
 		GameObject temp = Instantiate(spellList[spellToCast].projectile, transform.position, Camera.main.transform.rotation) as GameObject;
 		temp.transform.localScale = new Vector3(spellList[spellToCast].size, spellList[spellToCast].size, spellList[spellToCast].size);
+		temp.GetComponent<SpellStat>().size = spellList[spellToCast].size;
 		//collider might be out of range
 		temp.GetComponent<SpellStat>().damage = spellList[spellToCast].damage;
 	}
