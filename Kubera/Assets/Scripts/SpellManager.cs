@@ -12,15 +12,15 @@ public class SpellManager : MonoBehaviour {
 		{"teo", "test_","test",null},
 		{"teo", "test_","test",null},
 
-		{"teo", "test_","test",null},
-		{"teo", "test_","test",null},
-		{"teo", "test_","test",null},
-		{"teo", "test_","test",null},
+		{"sepia", "fra",null,"null"},
+		{"sepia", "fra",null,"va"},
+		{"sepia", "fra",null,"ria"},
+		{"sepia", "fra",null,"kezo"},
 
-		{"teo", "test_","test",null},
-		{"sepia", "fra",null,"nia"},
+		{"sepia", "fra",null,"gesu"},
+		{"sepia", "fra",null,"don"},
 		{"sepia", "fra",null,"ruya"},
-		{"sepia", "fra",null,"tora"}
+		{"sepia", "fra",null,"da"}
 	};
 
 	byte affinitySelected = 0;
