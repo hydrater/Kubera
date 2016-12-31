@@ -18,7 +18,7 @@ public class SpellManager : MonoBehaviour {
 		{"teo", "test_","test",null},
 
 		{"teo", "test_","test",null},
-		{"teo", "test_","test",null},
+		{"sepia", "fra",null,"nia"},
 		{"sepia", "fra",null,"ruya"},
 		{"sepia", "fra",null,"tora"}
 	};
@@ -64,28 +64,25 @@ public class SpellManager : MonoBehaviour {
 		{
 			if (Input.GetKeyDown(KeyCode.Alpha1))
 			{
-				if (spellList[affinitySelected - 1].spellName != "")
+				if (spellList[affinitySelected*4 - 4].spellName != "")
 				{
-					StartCoroutine(cast(affinitySelected - 1));
+					StartCoroutine(cast(affinitySelected*4 - 4));
 					break;
 				}
 			}
 			else if (Input.GetKeyDown(KeyCode.Alpha2))
 			{
-				if (spellList[affinitySelected*4 - 1].spellName != "")
+				if (spellList[affinitySelected*4 - 3].spellName != "")
 				{
-					StartCoroutine(cast(affinitySelected*2 - 1));
+					StartCoroutine(cast(affinitySelected*4 - 3));
 					break;
 				}
 			}
 			else if (Input.GetKeyDown(KeyCode.Alpha3))
 			{
-				Debug.Log(affinitySelected);
-				//Debug.Log((affinitySelected*3) - 1);
-				if (spellList[affinitySelected*4 - 1].spellName != "")
+				if (spellList[affinitySelected*4 - 2].spellName != "")
 				{
-					Debug.Log("reached");
-					StartCoroutine(cast(affinitySelected*3 - 1));
+					StartCoroutine(cast(affinitySelected*4 - 2));
 					break;
 				}
 			}
