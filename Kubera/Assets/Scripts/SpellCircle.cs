@@ -6,7 +6,6 @@ public class SpellCircle : MonoBehaviour {
 	void Start () 
 	{
 		StartCoroutine(DeathTimer());
-		transform.eulerAngles = new Vector3(transform.eulerAngles.x+90, transform.eulerAngles.y, transform.eulerAngles.z);
 	}
 
 	void Update ()

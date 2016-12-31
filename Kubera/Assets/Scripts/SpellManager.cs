@@ -55,7 +55,7 @@ public class SpellManager : MonoBehaviour {
 	{
 		affinityParticle.SetActive(true);
 		float t = 0;
-		GameObject temp = Instantiate(Resources.Load("Others/spellCircle"), transform.position, transform.rotation) as GameObject;
+		GameObject temp = Instantiate(Resources.Load("Others/spellCircle"), new Vector3(transform.position.x,transform.position.y-0.7f,transform.position.z), transform.rotation) as GameObject;
 		Material mat = Resources.Load(string.Format("Affinity/Materials/{0}", affinitySelected)) as Material;
         temp.GetComponent<Renderer>().material = mat;
 		temp.transform.GetChild(0).GetComponent<Renderer>().material = mat;
