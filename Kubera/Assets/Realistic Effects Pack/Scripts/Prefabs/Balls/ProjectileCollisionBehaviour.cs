@@ -147,6 +147,7 @@ public class ProjectileCollisionBehaviour : MonoBehaviour
     if (Physics.Raycast(tRoot.position, direction, out raycastHit, distanceNextFrame + effectSettings.ColliderRadius, effectSettings.LayerMask)) {
       hit = raycastHit;
       endPoint = raycastHit.point - direction * effectSettings.ColliderRadius;
+	if (hit.transform.tag != "Player")
       CollisionEnter();
     }
 

@@ -19,7 +19,7 @@ public class SpellManager : MonoBehaviour {
 
 		{"teo", "test_","test",null},
 		{"teo", "test_","test",null},
-		{"teo", "test_","test",null},
+		{"sepia", "fra",null,"tora"},
 		{"sepia", "fra",null,"ruya"}
 	};
 
