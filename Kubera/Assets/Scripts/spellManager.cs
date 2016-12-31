@@ -19,8 +19,8 @@ public class SpellManager : MonoBehaviour {
 
 		{"teo", "test_","test",null},
 		{"teo", "test_","test",null},
-		{"sepia", "fra",null,"tora"},
-		{"sepia", "fra",null,"ruya"}
+		{"sepia", "fra",null,"ruya"},
+		{"sepia", "fra",null,"tora"}
 	};
 
 	byte affinitySelected = 0;
@@ -72,7 +72,7 @@ public class SpellManager : MonoBehaviour {
 			}
 			else if (Input.GetKeyDown(KeyCode.Alpha2))
 			{
-				if (spellList[affinitySelected*2 - 1].spellName != "")
+				if (spellList[affinitySelected*4 - 1].spellName != "")
 				{
 					StartCoroutine(cast(affinitySelected*2 - 1));
 					break;
@@ -80,8 +80,11 @@ public class SpellManager : MonoBehaviour {
 			}
 			else if (Input.GetKeyDown(KeyCode.Alpha3))
 			{
-				if (spellList[affinitySelected*3 - 1].spellName != "")
+				Debug.Log(affinitySelected);
+				//Debug.Log((affinitySelected*3) - 1);
+				if (spellList[affinitySelected*4 - 1].spellName != "")
 				{
+					Debug.Log("reached");
 					StartCoroutine(cast(affinitySelected*3 - 1));
 					break;
 				}
@@ -113,6 +116,7 @@ public class SpellManager : MonoBehaviour {
 
 	IEnumerator cast(int spellToCast)
 	{
+
 		isCasting = true;
 		GetComponent<FirstPersonController>().canMove = false;
 		aimer.SetActive(true);
