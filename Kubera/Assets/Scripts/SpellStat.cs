@@ -16,11 +16,14 @@ public class SpellStat : MonoBehaviour {
 
 	void Start()
 	{
-//		foreach (GameObject i in childMaterial)
-//			i.GetComponent<Renderer>().material = mat;
-//
-//		foreach (GameObject i in _childMaterial)
-//			i.GetComponent<ParticleSystem>().startSize *= size;
+		foreach (GameObject i in childMaterial)
+			i.GetComponent<Renderer>().material = mat;
+
+		foreach (GameObject i in _childMaterial)
+		{
+			i.GetComponent<ParticleSystemRenderer>().material = _mat;
+			i.GetComponent<ParticleSystem>().startSize *= size;
+		}
 	}
 
 }

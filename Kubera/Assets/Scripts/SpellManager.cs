@@ -132,6 +132,8 @@ public class SpellManager : MonoBehaviour {
 		temp.GetComponent<SpellStat>().size = spellList[spellToCast].size;
 		//collider might be out of range
 		temp.GetComponent<SpellStat>().damage = spellList[spellToCast].damage;
+		temp.GetComponent<SpellStat>().mat = spellList[spellToCast].mat;
+		temp.GetComponent<SpellStat>()._mat = spellList[spellToCast]._mat;
 	}
 
 	void Start()
@@ -199,7 +201,7 @@ public class SpellManager : MonoBehaviour {
 				castTime *= temp.castTimeMultiplier;
 				size = temp.size;
 			}
-			spellList[i] = new SpellBlueprint(spellName, damage, cost, castTime, size, spellsToAdd[i,3], temp1.element, temp1.mat, temp3.type);
+			spellList[i] = new SpellBlueprint(spellName, damage, cost, castTime, size, spellsToAdd[i,3], temp1.element, temp1.mat, temp1._mat, temp3.type);
 		}
 	}
 }
